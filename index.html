@@ -1,0 +1,205 @@
+<!--
+#
+# Darik Hart
+# "My first git-hub repository. Javasctipt es6 challenge"
+#
+# Licence: Don't use this code for anything ever! :)
+# But if you do, give credit where credit is due.)
+#
+-->
+<!DOCTYPE HTML>
+<html itemscope itemtype="http://schema.org/WebPage">
+
+<head>
+    <meta charset="utf-8">
+<title>QUANTUM-INCEPTION - Elevendan</title>
+<META name="description" content="Clock mechanics in OO JavaScript ECMAScript 2015/ ES6."/>
+<meta name="keywords" content="javascript, ES6, clock, request frame work example"/>
+<meta name="twitter:site" content="@aivcen"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+</head>
+
+<body>
+
+    <body>
+        <precision class="quantum-clock" id="quantumClock">
+            <hand class="clock-hand hour-Hand" id="hourHand"></hand>
+            <hand class="clock-hand minute-Hand" id="minHand"></hand>
+            <hand class="clock-hand second-Hand" id="secHand"></hand>
+            <inception class="quantum-cercle cercle" id="quantumCercle"></inception>
+        </precision>
+        <div class="quantum-title" id="quantumTitle">
+            <h1>
+                QUANTUM-INCEPTION
+            </h1>
+            <p>
+                Clock mechanics in OO JavaScript ECMAScript 2015/ ES6.
+            </p>
+        </div>
+        <div class="quantum-destruction">
+            <iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/68308513&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+        </div>
+    </body>
+    <style>
+        body {
+            background: #222;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+        }
+        
+        .quantum-title,
+        h1 {
+            align-items: center;
+            color: blueviolet;
+            font-family: 'Lato', sans-serif;
+            font: 55px;
+            text-align: center
+        }
+        
+        .quantum-clock {
+            display: flex;
+            align-items: center;
+            margin: 100px auto;
+            padding: 0;
+            border-radius: 90%;
+            width: 337px;
+            height: 337px;
+            transform: translateY(1px);
+        }
+        
+        .cercle {
+            position: absolute;
+            border-radius: 90%;
+            width: 100%;
+            height: 100%;
+            border: 2px white solid;
+            transform: scale(1.041)
+        }
+        
+        .clock-hand {
+            position: absolute;
+            height: 2px;
+            width: 50%;
+            top: 50%;
+            background: blueviolet;
+            transform: rotate(90deg);
+            transform-origin: 100%;
+        }
+        
+        .tic {
+            transition: all 20s cubic-bezier(0, 0.02, 0.17, 1.22);
+            background: rgba(255, 82, 82, 1) !important;
+        }
+        
+        .precision {
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            top: 0;
+            background: #222;
+            transform-origin: 0;
+            padding: 0;
+            margin: 0;
+            align-self: auto
+        }
+        
+        .quantum-destruction {
+            display: none
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+    </style>
+    <script type="text/javascript">
+        class Inception {
+            constructor(e) {
+                this.clock = document.getElementById('quantumClock')
+                this.hourHand = document.getElementById('hourHand')
+                this.minHand = document.getElementById('minHand')
+                this.secHand = document.getElementById('secHand')
+                this.marks = 60
+                    //the mechanics
+                this.angle = 0
+                this.increase = Math.PI * 2 / this.marks
+                this.formation = {}
+            }
+
+        }
+
+        class Quantum extends Inception {
+            constructor(e) {
+                    super()
+                    console.log('QUANTUM-INCEPTION')
+                    this.quartz()
+                }
+                //The time keeper
+            quartz() {
+                const now = new Date()
+
+                //once per second zone
+                if (this.sec != now.getSeconds()) {
+                    this.sec = (now.getSeconds() / 60) * 360 + 90
+                    this.min = (now.getMinutes() / 60) * 360 + 90
+                    this.hour = (now.getHours() / 12) * 360 + 90
+                    this.secHand.style.cssText =
+                        `background: ${ this.sec == 90 ? '#ff5252' : 'blueviolet' }; transform: rotate(${this.sec || 0}deg)`;
+                    this.minHand.style.cssText =
+                        `background: ${ this.min == 90 ? '#ff5252' : 'blueviolet' }; transform: rotate(${this.min || 0}deg)`;
+                    this.hourHand.style.transform = `rotate(${this.hour}deg)`;
+                    this._seconds()
+                }
+
+                /*
+                 //60 per second zone
+                 */
+                requestAnimationFrame(this.quartz.bind(this))
+
+            }
+
+
+            _seconds() {
+                const id = `sin${this.sec}`;
+                if (this.formation[id]) {
+                    if (!this.formation[id].transiton) {
+                        this.formation[id].classList.add('tic')
+                        this.formation[id].transiton = 1;
+                    }
+                } else {
+                    this._initiate(id)
+                }
+
+            }
+
+            _initiate(id) {
+                let element = document.createElement('mark')
+                let x = (60 * Math.cos(this.angle)) + 50
+                let y = (60 * Math.sin(this.angle)) + 50
+                element.classList = 'clock-hand precision';
+                element.id = id
+                element.transition = 0
+                element.style.cssText = ` top:${x}%; left:${y}%;`;
+                this.clock.appendChild(element)
+                this.angle += this.increase;
+                this.formation[id] = document.getElementById(id)
+                this.formation[id].addEventListener('transitionend', this._toc)
+            }
+
+            _toc() {
+                this.classList.remove('tic')
+            }
+
+
+        }
+
+        let InTime = new Quantum()
+    </script>
+
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "quantum-ineption",
+  "version": "1.0.0",
+  "description": "Clock mechanics in OO JavaScript ECMAScript 2015/ ES6.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aivcen/QUANTUM-INCEPTION.git"
+  },
+  "keywords": [
+    "ES6",
+    "javascript",
+    "animation",
+    "time",
+    "keeper",
+    "classes"
+  ],
+  "author": "Darik Hart",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aivcen/QUANTUM-INCEPTION/issues"
+  },
+  "homepage": "https://github.com/aivcen/QUANTUM-INCEPTION#readme"
+}
